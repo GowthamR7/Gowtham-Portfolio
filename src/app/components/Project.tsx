@@ -1,8 +1,7 @@
-'use client'; // This component now uses client-side hooks
+'use client'; 
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
-// Import GSAP utilities from your central file
 import { gsap, useGSAP } from '@/app/lib/gsap';
 
 const Project = () => {
@@ -10,14 +9,13 @@ const Project = () => {
 
   useGSAP(() => {
     // Loop through each .project-item section
-    gsap.utils.toArray('.project-item').forEach((item, index) => {
+    // THIS IS THE FIXED LINE 👇: Added the 'Element' type to 'item' to fix the TypeScript error.
+    gsap.utils.toArray('.project-item').forEach((item: Element, index: number) => {
       const projectItem = item as HTMLElement;
 
-      // Find the content and image elements within the current project item
       const content = projectItem.querySelector('.project-content');
       const image = projectItem.querySelector('.project-image');
       
-      // Safety check: If elements aren't found, skip to prevent errors
       if (!content || !image) return;
 
       const tl = gsap.timeline({
@@ -67,9 +65,9 @@ const Project = () => {
           <h1 className='anim-text text-6xl font-bold'>Project</h1>
           <h2 className='anim-text text-4xl mt-4'>HR Management Tool | B2B</h2>
           <p className='anim-text text-lg text-white/60 mt-8'>
-              Built an end-to-end B2B HR management system for streamlining onboarding, payroll, and performance tracking. [cite: 31]
+              Built an end-to-end B2B HR management system for streamlining onboarding, payroll, and performance tracking.
               <br/><br/>
-              The robust backend, powered by Node.js, was engineered to support over 100,000 requests per day while maintaining 99.99% uptime for all client applications. [cite: 33, 34]
+              The robust backend, powered by Node.js, was engineered to support over 100,000 requests per day while maintaining 99.99% uptime for all client applications.
           </p>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
@@ -93,9 +91,9 @@ const Project = () => {
         <div className='project-content w-1/2 text-white p-12'>
           <h2 className='anim-text text-4xl mt-4'>AI Placement Insight Generator</h2>
           <p className='anim-text text-lg text-white/60 mt-8'>
-              Designed an autonomous 6-agent system using LangGraph to analyze college placement data and generate actionable insights for administrators. [cite: 25]
+              Designed an autonomous 6-agent system using LangGraph to analyze college placement data and generate actionable insights for administrators.
               <br/><br/>
-              It features a Retrieval-Augmented Generation (RAG) agent with a FAISS vector store to compare current trends against historical data, providing deep contextual analysis. [cite: 26, 27]
+              It features a Retrieval-Augmented Generation (RAG) agent with a FAISS vector store to compare current trends against historical data, providing deep contextual analysis.
           </p>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
@@ -113,9 +111,9 @@ const Project = () => {
         <div className='project-content w-1/2 text-white p-12'>
           <h2 className='anim-text text-4xl mt-4'>Task Management Tool | B2B</h2>
           <p className='anim-text text-lg text-white/60 mt-8'>
-              Launched a B2B task management platform to streamline project tracking and enhance productivity for over 100 users across multiple teams. [cite: 37]
+              Launched a B2B task management platform to streamline project tracking and enhance productivity for over 100 users across multiple teams.
               <br/><br/>
-              The backend was engineered with over 50 scalable REST API endpoints using Node.js to manage 12 distinct task workflows and complex user role permissions. [cite: 38]
+              The backend was engineered with over 50 scalable REST API endpoints using Node.js to manage 12 distinct task workflows and complex user role permissions.
           </p>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
@@ -139,9 +137,9 @@ const Project = () => {
         <div className='project-content w-1/2 text-white p-12'>
           <h2 className='anim-text text-4xl mt-4'>Healthcare Platform | B2B & B2C</h2>
           <p className='anim-text text-lg text-white/60 mt-8'>
-              Orchestrated the development of a healthcare platform using a microservices architecture to connect medical professionals with jobs and communities. [cite: 41]
+              Orchestrated the development of a healthcare platform using a microservices architecture to connect medical professionals with jobs and communities.
               <br/><br/>
-              Implemented key features like personalized job recommendations, digital portfolios, and an applicant tracking system to streamline professional growth. [cite: 42]
+              Implemented key features like personalized job recommendations, digital portfolios, and an applicant tracking system to streamline professional growth.
           </p>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
