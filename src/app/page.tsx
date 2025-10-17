@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 import { gsap, useGSAP } from '@/app/lib/gsap';
 import dynamic from 'next/dynamic';
 import About from './components/About';
-import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Project from './components/Project';
 import Contact from './components/Contact';

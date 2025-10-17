@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 // Make sure this import path is correct for your project structure
-import { gsap, useGSAP, ScrollTrigger } from '@/app/lib/gsap';
+import { gsap, useGSAP } from '@/app/lib/gsap';
 import Link from 'next/link';
 
 

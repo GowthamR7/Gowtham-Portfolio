@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 // Import GSAP utilities from your central file
-import { gsap, useGSAP, ScrollTrigger } from '@/app/lib/gsap';
+import { gsap, useGSAP } from '@/app/lib/gsap';
 
 const Project = () => {
   const container = useRef(null);
