@@ -26,6 +26,6 @@
       "@/utils/*": ["./src/app/components/ParticleSystem/utils/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/ParticleSystem/utils/particleUtils.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/ParticleSystem/utils/particleUtils.ts", "src/app/components/HeroAboutWrapper.js"],
   "exclude": ["node_modules"]
 }

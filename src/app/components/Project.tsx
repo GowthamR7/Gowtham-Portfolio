@@ -1,182 +1,156 @@
-import React from 'react'
+'use client'; // This component now uses client-side hooks
+
+import React, { useRef } from 'react';
 import Image from 'next/image';
+// Import GSAP utilities from your central file
+import { gsap, useGSAP, ScrollTrigger } from '@/app/lib/gsap';
 
 const Project = () => {
+  const container = useRef(null);
+
+  useGSAP(() => {
+    // Loop through each .project-item section
+    gsap.utils.toArray('.project-item').forEach((item, index) => {
+      const projectItem = item as HTMLElement;
+
+      // Find the content and image elements within the current project item
+      const content = projectItem.querySelector('.project-content');
+      const image = projectItem.querySelector('.project-image');
+      
+      // Safety check: If elements aren't found, skip to prevent errors
+      if (!content || !image) return;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: projectItem,
+          start: 'top 70%', 
+          end: 'bottom 90%',
+          scrub: true,
+        },
+      });
+      
+      const isReversed = index % 2 !== 0;
+
+      gsap.set(content, { opacity: 0, x: isReversed ? 100 : -100 });
+      gsap.set(image, { opacity: 0, x: isReversed ? -100 : 100 });
+      gsap.set(content.querySelectorAll('.anim-text'), { opacity: 0, y: 30 });
+
+      tl.to(content, {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+      })
+      .to(image, {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+      }, '<')
+      .to(content.querySelectorAll('.anim-text'), {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        stagger: 0.1,
+      }, '-=0.5');
+    });
+    
+  }, { scope: container });
+
   return (
-    <div className="w-full min-h-screen flex flex-col justify-center items-center bg-black text-white">
+    <div ref={container} className="w-full min-h-screen flex flex-col justify-center items-center bg-black text-white">
 
-      <div className="w-full h-[95vh]  flex justify-center gap-8">
-      <div className='w-1/2 text-white p-12'>
-    <h1 className='text-6xl font-bold'>Project</h1>
-    <h2 className='text-4xl mt-4'>HR Management Tool | B2B</h2>
-    <p className='text-lg text-white/60 mt-8'>
-        An end-to-end B2B HR management system designed to handle the entire employee lifecycle, including onboarding, payroll, and performance tracking. The platform features a highly responsive and dynamic user interface built with React.js and Redux for seamless real-time state management.
-        <br/><br/>
-        The robust backend, powered by Node.js, features comprehensive APIs engineered to support over 100,000 requests per day. This scalable architecture ensures optimized performance and maintains a 99.99% uptime for all customer-facing applications.
-    </p>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Tech</h2>
+      {/* Project 1: HR Management Tool */}
+      <div className="project-item w-full h-[95vh] flex justify-center items-center gap-8 px-4">
+        <div className='project-content w-1/2 text-white p-12'>
+          <h1 className='anim-text text-6xl font-bold'>Project</h1>
+          <h2 className='anim-text text-4xl mt-4'>HR Management Tool | B2B</h2>
+          <p className='anim-text text-lg text-white/60 mt-8'>
+              Built an end-to-end B2B HR management system for streamlining onboarding, payroll, and performance tracking. [cite: 31]
+              <br/><br/>
+              The robust backend, powered by Node.js, was engineered to support over 100,000 requests per day while maintaining 99.99% uptime for all client applications. [cite: 33, 34]
+          </p>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>React.js<br/>Node.js<br/>MongoDB<br/>Redux<br/>TypeScript</p></div>
+          </div>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Role</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>Full Stack Developer</p></div>
+          </div>
         </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                React.js<br/>
-                Node.js<br/>
-                MongoDB<br/>
-                Redux<br/>
-                TypeScript
-            </p>
-        </div>
-    </div>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Role</h2>
-        </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                Full Stack Developer
-            </p>
-        </div>
-    </div>
-</div>
-
-        <div className='w-1/2 relative bg-black text-white'>
-      <Image src="/sample-image.jpg" alt="Sample Image" fill className='object-cover' />
+        <div className='project-image w-1/2 h-full relative'>
+          <Image src="/hrm.png" alt="HR Management Tool" fill className='object-cover' />
         </div>
       </div>
 
-
-
-
-
-      <div className="w-full h-[95vh]  flex justify-center gap-8">
-      <div className='w-1/2 text-white p-12'>
-  
-    <h2 className='text-4xl mt-4'>AI Placement Insight Generator</h2>
-    <p className='text-lg text-white/60 mt-8'>
-        An advanced AI platform designed to provide college administrators with deep, actionable insights from placement data. The system's core is an autonomous 6-agent architecture, built with **LangGraph**, that intelligently processes and analyzes complex datasets to identify key trends and performance metrics.
-        <br/><br/>
-        It features a sophisticated **Retrieval-Augmented Generation (RAG)** agent that utilizes a **FAISS** vector store to compare current data against historical trends, offering deep contextual analysis. The full-stack web platform, built with **React.js** and **Flask**, provides a seamless dashboard for administrators to upload data and visualize the final reports.
-    </p>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Tech</h2>
+      {/* Project 2: AI Placement Insight Generator */}
+      <div className="project-item w-full h-[95vh] flex justify-center items-center gap-8 px-4">
+        <div className='project-image w-1/2 h-full relative'>
+          <Image src="/ai.png" alt="AI Placement Insight Generator" fill className='object-cover' />
         </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                LangGraph<br/>
-                LangChain<br/>
-                Google Gemini<br/>
-                Flask<br/>
-                React.js<br/>
-                RAG & FAISS
-            </p>
-        </div>
-    </div>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Role</h2>
-        </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                AI Engineer & Full Stack Developer
-            </p>
-        </div>
-    </div>
-</div>
-
-        <div className='w-1/2 relative bg-black text-white'>
-      <Image src="/sample-image.jpg" alt="Sample Image" fill className='object-cover' />
+        <div className='project-content w-1/2 text-white p-12'>
+          <h2 className='anim-text text-4xl mt-4'>AI Placement Insight Generator</h2>
+          <p className='anim-text text-lg text-white/60 mt-8'>
+              Designed an autonomous 6-agent system using LangGraph to analyze college placement data and generate actionable insights for administrators. [cite: 25]
+              <br/><br/>
+              It features a Retrieval-Augmented Generation (RAG) agent with a FAISS vector store to compare current trends against historical data, providing deep contextual analysis. [cite: 26, 27]
+          </p>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>LangGraph<br/>LangChain<br/>Google Gemini<br/>Flask<br/>React.js<br/>RAG & FAISS</p></div>
+          </div>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Role</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>AI Engineer & Full Stack Developer</p></div>
+          </div>
         </div>
       </div>
 
-
-
-      <div className="w-full h-[95vh]  flex justify-center gap-8">
-      <div className='w-1/2 text-white p-12'>
-   
-    <h2 className='text-4xl mt-4'>Task Management Tool | B2B</h2>
-    <p className='text-lg text-white/60 mt-8'>
-        A comprehensive B2B task management platform designed to streamline project tracking and enhance team collaboration for over 100 users. The application provides a centralized hub for managing complex project lifecycles from start to finish.
-        <br/><br/>
-        The backend was engineered with over 50 scalable REST API endpoints using **Node.js** and **MongoDB**, meticulously designed to handle 12 distinct task workflows and complex user role permissions. The frontend, built with **React.js** and **Redux**, offers a fluid and intuitive user experience.
-    </p>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Tech</h2>
+      {/* Project 3: Task Management Tool */}
+      <div className="project-item w-full h-[95vh] flex justify-center items-center gap-8 px-4">
+        <div className='project-content w-1/2 text-white p-12'>
+          <h2 className='anim-text text-4xl mt-4'>Task Management Tool | B2B</h2>
+          <p className='anim-text text-lg text-white/60 mt-8'>
+              Launched a B2B task management platform to streamline project tracking and enhance productivity for over 100 users across multiple teams. [cite: 37]
+              <br/><br/>
+              The backend was engineered with over 50 scalable REST API endpoints using Node.js to manage 12 distinct task workflows and complex user role permissions. [cite: 38]
+          </p>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>React.js<br/>Node.js<br/>MongoDB<br/>Redux<br/>TypeScript</p></div>
+          </div>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Role</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>Full Stack Developer</p></div>
+          </div>
         </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                React.js<br/>
-                Node.js<br/>
-                MongoDB<br/>
-                Redux<br/>
-                TypeScript
-            </p>
-        </div>
-    </div>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Role</h2>
-        </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                Full Stack Developer
-            </p>
-        </div>
-    </div>
-</div>
-
-        <div className='w-1/2 relative bg-black text-white'>
-      <Image src="/sample-image.jpg" alt="Sample Image" fill className='object-cover' />
+        <div className='project-image w-1/2 h-full relative'>
+          <Image src="/task.png" alt="Task Management Tool" fill className='object-cover' />
         </div>
       </div>
 
-      <div className="w-full h-[95vh]  flex justify-center gap-8">
-      <div className='w-1/2 text-white p-12'>
-   
-    <h2 className='text-4xl mt-4'>Healthcare Platform | B2B & B2C</h2>
-    <p className='text-lg text-white/60 mt-8'>
-        A sophisticated healthcare platform built on a **microservices architecture** to connect medical professionals with career opportunities and professional communities. The platform serves both individual users (B2C) and healthcare organizations (B2B).
-        <br/><br/>
-        Key features include a personalized job recommendation engine, digital portfolios for professionals, and a comprehensive applicant tracking system for employers. The architecture leverages **RabbitMQ** for asynchronous communication between services and **Socket.IO** for real-time updates, ensuring a seamless and efficient user experience.
-    </p>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Tech</h2>
+      {/* Project 4: Healthcare Platform */}
+      <div className="project-item w-full h-[95vh] flex justify-center items-center gap-8 px-4">
+        <div className='project-image w-1/2 h-full relative'>
+          <Image src="/health.png" alt="Healthcare Platform" fill className='object-cover' />
         </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                Next.js<br/>
-                Microservices<br/>
-                RabbitMQ & Socket.IO<br/>
-                FastAPI & Node.js<br/>
-                MongoDB
-            </p>
-        </div>
-    </div>
-
-    <div className='flex border-t border-white/20 pt-3 mt-8'>
-        <div className='w-1/2'>
-            <h2 className='text-4xl mt-4'>Role</h2>
-        </div>
-        <div className='w-1/2'>
-            <p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>
-                Backend Architect & Developer
-            </p>
-        </div>
-    </div>
-</div>
-
-        <div className='w-1/2 relative bg-black text-white'>
-      <Image src="/sample-image.jpg" alt="Sample Image" fill className='object-cover' />
+        <div className='project-content w-1/2 text-white p-12'>
+          <h2 className='anim-text text-4xl mt-4'>Healthcare Platform | B2B & B2C</h2>
+          <p className='anim-text text-lg text-white/60 mt-8'>
+              Orchestrated the development of a healthcare platform using a microservices architecture to connect medical professionals with jobs and communities. [cite: 41]
+              <br/><br/>
+              Implemented key features like personalized job recommendations, digital portfolios, and an applicant tracking system to streamline professional growth. [cite: 42]
+          </p>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>Next.js<br/>Microservices<br/>RabbitMQ & Socket.IO<br/>FastAPI & Node.js<br/>MongoDB</p></div>
+          </div>
+          <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
+              <div className='w-1/2'><h2 className='text-4xl mt-4'>Role</h2></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>Backend Architect & Developer</p></div>
+          </div>
         </div>
       </div>
 
@@ -184,4 +158,4 @@ const Project = () => {
   )
 }
 
-export default Project
+export default Project;

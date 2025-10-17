@@ -14,5 +14,10 @@
 
 body {
   font-family: 'Barlow', sans-serif;
-  background-color: #000; /* Ensure body background is black */
+  background-color: #000; 
+}
+
+/* Add this at the end of your globals.css file */
+.distort-link span {
+  transition: transform 0.1s linear;
 }
