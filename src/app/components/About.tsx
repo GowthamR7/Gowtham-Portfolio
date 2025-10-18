@@ -76,7 +76,7 @@ const About = () => {
               Intuitive by Design
             </h3>
             <p className='text-neutral-600'>
-              Every great user journey begins with thoughtful design. I use **React** and **Next.js** to build fluid, responsive interfaces, enhanced with subtle animations using **GSAP**. My goal is to create digital spaces that feel effortless and inspiring to navigate.
+              Every great user journey begins with thoughtful design. I use <strong>React</strong> and <strong>Next.js</strong> to build fluid, responsive interfaces, enhanced with subtle animations using <strong>GSAP</strong>. My goal is to create digital spaces that feel effortless and inspiring to navigate.
             </p>
           </div>
 
@@ -86,7 +86,7 @@ const About = () => {
               Engineered for Tomorrow
             </h3>
             <p className='text-neutral-600'>
-              Beauty must be supported by strength. I engineer robust, scalable backends with **Node.js** and **Python**, designing powerful microservices and APIs that guarantee performance, reliability, and security for the future.
+              Beauty must be supported by strength. I engineer robust, scalable backends with <strong>Node.js</strong> and <strong>Python</strong>, designing powerful microservices and APIs that guarantee performance, reliability, and security for the future.
             </p>
           </div>
 
@@ -96,7 +96,7 @@ const About = () => {
               Intelligent Experiences
             </h3>
             <p className='text-neutral-600'>
-              I am driven to explore the frontier of technology with **Generative AI**. By building agentic workflows with **LangChain** and implementing advanced **RAG** systems, I infuse applications with intelligence, creating personalized and truly dynamic user interactions.
+              I am driven to explore the frontier of technology with <strong>Generative AI</strong>. By building agentic workflows with <strong>LangChain</strong> and implementing advanced <strong>RAG</strong> systems, I infuse applications with intelligence, creating personalized and truly dynamic user interactions.
             </p>
           </div>
         </div>
@@ -106,7 +106,6 @@ const About = () => {
             href="#contact"
             className='inline-block bg-black text-white font-bold uppercase tracking-widest py-4 px-8 rounded-full hover:bg-neutral-800 transition-colors'
           >
-            {/* THIS IS THE FIXED LINE 👇 */}
             Let&apos;s Create Together
           </Link>
         </div>

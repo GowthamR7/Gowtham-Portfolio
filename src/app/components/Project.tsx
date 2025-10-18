@@ -9,7 +9,6 @@ const Project = () => {
 
   useGSAP(() => {
     // Loop through each .project-item section
-    // THIS IS THE FIXED LINE 👇: Added the 'Element' type to 'item' to fix the TypeScript error.
     gsap.utils.toArray('.project-item').forEach((item: Element, index: number) => {
       const projectItem = item as HTMLElement;
 

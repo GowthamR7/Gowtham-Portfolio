@@ -2,30 +2,10 @@
 
 import React, { useRef } from 'react';
 import { gsap, useGSAP } from '@/app/lib/gsap';
-import dynamic from 'next/dynamic';
 import About from './components/About';
 import Hero from './components/Hero';
 import Project from './components/Project';
 import Contact from './components/Contact';
-
-
-const ParticleSystem = dynamic(
-  () => import('./components/ParticleSystem/ParticleSystem'),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="flex items-center justify-center h-screen bg-black text-white">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-          <p>Loading Particles...</p>
-        </div>
-      </div>
-    )
-  }
-);
-
-// ✅ STEP 2: The gsap.registerPlugin() call is no longer needed here!
-// It's handled globally by our new lib/gsap.ts file.
 
 const Home: React.FC = () => {
   const mainContainer = useRef(null);
@@ -37,7 +17,6 @@ const Home: React.FC = () => {
         start: 'top top',
         end: '+=50%',
         scrub: true,
-        
       },
     });
 
@@ -48,7 +27,6 @@ const Home: React.FC = () => {
 
   return (
     <main ref={mainContainer} className="relative w-full bg-black text-white overflow-hidden font-barlow perspective-container">
-      {/* <Navbar /> */}
       <Hero />
       <About />
       <Project />

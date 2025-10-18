@@ -7,8 +7,7 @@ import type {
   ParticleSystemProps, 
   ParticleSystemRefs, 
   ParticleUniforms,
-  TouchData,
-  MousePosition 
+  TouchData
 } from './types';
 
 // Vertex shader
@@ -115,11 +114,10 @@ const ParticleSystem: React.FC<ParticleSystemProps> = ({
 
   useEffect(() => {
     let mounted = true;
+    const currentMount = mountRef.current;
     
     const initParticleSystem = async (): Promise<void> => {
       try {
-        // ✅ **THIS IS THE PERMANENT FIX:** // We add a unique timestamp to the image URL to force the browser
-        // to download a fresh copy every time, defeating the cache.
         const imageToLoad = `${imagePath}?v=${Date.now()}`;
         const imageData = await ParticleUtils.loadImageData(imageToLoad);
 
@@ -133,9 +131,9 @@ const ParticleSystem: React.FC<ParticleSystemProps> = ({
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         
-        if (mountRef.current) {
-          mountRef.current.innerHTML = ''; // Clear previous renderer
-          mountRef.current.appendChild(renderer.domElement);
+        if (currentMount) {
+          currentMount.innerHTML = '';
+          currentMount.appendChild(renderer.domElement);
         }
         
         const { geometry, particleCount } = ParticleUtils.createParticleGeometry(imageData.width, imageData.height, imageData.data);
@@ -197,8 +195,8 @@ const ParticleSystem: React.FC<ParticleSystemProps> = ({
       if (animationId) cancelAnimationFrame(animationId);
       if (renderer) {
           renderer.dispose();
-          if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
-            mountRef.current.removeChild(renderer.domElement);
+          if (currentMount && currentMount.contains(renderer.domElement)) {
+            currentMount.removeChild(renderer.domElement);
           }
       }
       if (particles) {
