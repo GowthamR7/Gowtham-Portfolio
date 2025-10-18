@@ -29,7 +29,7 @@ const ContactPage = () => {
   const container = useRef(null);
 
   useEffect(() => {
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event: MouseEvent) => {
       setMousePos({ x: event.clientX, y: event.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);

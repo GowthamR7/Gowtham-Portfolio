@@ -9,7 +9,7 @@ const Project = () => {
 
   useGSAP(() => {
     // Loop through each .project-item section
-    gsap.utils.toArray('.project-item').forEach((item: Element, index: number) => {
+    gsap.utils.toArray<HTMLElement>('.project-item').forEach((item: HTMLElement, index: number) => {
       const projectItem = item as HTMLElement;
 
       const content = projectItem.querySelector('.project-content');
