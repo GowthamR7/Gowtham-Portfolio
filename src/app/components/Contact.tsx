@@ -102,7 +102,7 @@ const ContactPage = () => {
                 <span className="block anim-heading-word">GET IN</span>
                 <span className="block anim-heading-word ml-35 mt-8">TOUCH</span>
             </h1>
-            <p className="max-w-md text-base text-neutral-300 anim-paragraph ml-40 mb-50">
+            <p className="max-w-md text-base text-neutral-300 anim-paragraph ml-40 mb-43">
                 I&apos;m currently available for freelance work... Whether you have a clear vision or just the spark of an idea, I&apos;m ready to help bring it to life.
             </p>
         </div>
@@ -120,14 +120,27 @@ const ContactPage = () => {
         </div>
       </main>
 
-      <footer className='w-full bg-black text-white flex flex-wrap justify-between items-center text-[10px] md:text-xs font-bold tracking-widest uppercase gap-4 p-6 md:p-8 mt-auto'>
-        <p>Available for Work</p>
-        <p>© 2025</p>
-        {/* FIXED THE APOSTROPHE IN "Let's" HERE 👇 */}
-        <p>Let&apos;s Connect</p>
-        <p>Portfolio v1.0</p>
-        <p>Built with Next.js</p>
-      </footer>
+   
+
+<footer className='w-full bg-black text-white flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-bold tracking-widest uppercase gap-6 p-6 md:p-8 mt-auto'>
+  
+  {/* Left Side: Copyright */}
+  <p>© 2025 GOWTHAM R</p>
+  
+  {/* Center: Tech Stack */}
+  <p className="hidden md:block">CRAFTED WITH NEXT.JS & GSAP</p>
+  
+  {/* Right Side: Social Links */}
+  <div className="flex items-center gap-6">
+    <a href="https://github.com/GowthamR7" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
+      GITHUB
+    </a>
+    <a href="https://www.linkedin.com/in/gowtham-r-1634251b9/" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
+      LINKEDIN
+    </a>
+  </div>
+
+</footer>
     </div>
   );
 };
