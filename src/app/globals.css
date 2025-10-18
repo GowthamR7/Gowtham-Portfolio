@@ -1,6 +1,4 @@
 @import 'tailwindcss';
-
-/* Import the Google Font for the text style */
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap');
 
 @layer utilities {
@@ -15,7 +13,6 @@ body {
   background-color: #000; 
 }
 
-/* Add this at the end of your globals.css file */
 .distort-link span {
   transition: transform 0.1s linear;
 }
