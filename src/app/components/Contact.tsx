@@ -4,15 +4,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap, useGSAP } from '@/app/lib/gsap';
 
-import { FiMail, FiPhone } from 'react-icons/fi';
+// 👇 1. IMPORT THE DOWNLOAD ICON
+import { FiMail, FiPhone, FiDownload } from 'react-icons/fi';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
-// THIS IS THE FIXED COMPONENT 👇
-const CreativeLink = ({ title, detail, href, icon }: { title: string; detail: string; href: string; icon: React.ReactNode }) => (
+const CreativeLink = ({ title, detail, href, icon, download = false }: { title: string; detail: string; href: string; icon: React.ReactNode; download?: boolean }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
+    // Add the download attribute if it's a download link
+    {...(download && { download: true })}
     className="anim-link group relative flex w-full justify-between items-center border-b border-black py-8 transition-colors duration-300 hover:border-neutral-400"
   >
     <div className='flex items-center gap-4'>
@@ -78,6 +80,7 @@ const ContactPage = () => {
   return (
     <div id="contact" ref={container} className="w-full min-h-screen bg-white text-black flex flex-col font-sans overflow-hidden">
       
+      {/* ... (Your Header code remains the same) ... */}
       <header className='w-full flex justify-between items-center p-6 md:p-8 text-[10px] md:text-xs font-bold tracking-widest uppercase'>
         <Link href="/" className="z-10">
           <p>Gowtham R</p>
@@ -89,6 +92,7 @@ const ContactPage = () => {
           </div>
         </Link>
       </header>
+
 
       <div
         style={followerStyle}
@@ -117,30 +121,31 @@ const ContactPage = () => {
           <CreativeLink title="Phone" detail="Click to Call" href="tel:+919944814765" icon={<FiPhone size={24} />} />
           <CreativeLink title="LinkedIn" detail="View Profile" href="https://www.linkedin.com/in/gowtham-r-1634251b9/" icon={<FaLinkedin size={24} />} />
           <CreativeLink title="GitHub" detail="See My Code" href="https://github.com/GowthamR7" icon={<FaGithub size={24} />} />
+          
+          {/* 👇 2. ADD THE NEW RESUME LINK HERE */}
+          <CreativeLink 
+            title="Resume" 
+            detail="Download PDF" 
+            href="/Gowtham_Resume_Fullstack.pdf" 
+            icon={<FiDownload size={24} />}
+            download={true} // This tells the component to add the download attribute
+          />
         </div>
       </main>
 
-   
-
-<footer className='w-full bg-black text-white flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-bold tracking-widest uppercase gap-6 p-6 md:p-8 mt-auto'>
-  
-  {/* Left Side: Copyright */}
-  <p>© 2025 GOWTHAM R</p>
-  
-  {/* Center: Tech Stack */}
-  <p className="hidden md:block">CRAFTED WITH NEXT.JS & GSAP</p>
-  
-  {/* Right Side: Social Links */}
-  <div className="flex items-center gap-6">
-    <a href="https://github.com/GowthamR7" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
-      GITHUB
-    </a>
-    <a href="https://www.linkedin.com/in/gowtham-r-1634251b9/" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
-      LINKEDIN
-    </a>
-  </div>
-
-</footer>
+      {/* ... (Your Footer code remains the same) ... */}
+      <footer className='w-full bg-black text-white flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-bold tracking-widest uppercase gap-6 p-6 md:p-8 mt-auto'>
+        <p>© 2025 GOWTHAM R</p>
+        <p className="hidden md:block">CRAFTED WITH NEXT.JS & GSAP</p>
+        <div className="flex items-center gap-6">
+          <a href="https://github.com/GowthamR7" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
+            GITHUB
+          </a>
+          <a href="https://www.linkedin.com/in/gowtham-r-1634251b9/" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
+            LINKEDIN
+          </a>
+        </div>
+      </footer>
     </div>
   );
 };

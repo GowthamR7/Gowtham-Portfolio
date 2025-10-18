@@ -165,17 +165,17 @@ const Home: React.FC = () => {
         </div>
 
         {/* About Section */}
-        <div className="about-section section-slide relative z-15">
+        <div className="about-section section-slide relative z-17">
           <About />
         </div>
 
         {/* Project Section */}
-        <div className="project-section section-slide relative z-15">
+        <div className="project-section section-slide relative z-17">
           <Project />
         </div>
 
         {/* Contact Section */}
-        <div className="contact-section section-slide relative z-15">
+        <div className="contact-section section-slide relative z-17">
           <Contact />
         </div>
       </main>

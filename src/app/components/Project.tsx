@@ -96,7 +96,7 @@ const Project = () => {
           </p>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
-              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>LangGraph<br/>LangChain<br/>Google Gemini<br/>Flask<br/>React.js<br/>RAG & FAISS</p></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>LangGraph<br/>LangChain<br/>Google Gemini<br/>Flask<br/>Next.js<br/>RAG & FAISS</p></div>
           </div>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Role</h2></div>
@@ -116,7 +116,7 @@ const Project = () => {
           </p>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Tech</h2></div>
-              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>React.js<br/>Node.js<br/>MongoDB<br/>Redux<br/>TypeScript</p></div>
+              <div className='w-1/2'><p className='text-lg text-white/60 pt-8 border-l border-white/20 pl-4'>Next.js<br/>Node.js<br/>MongoDB<br/>Redux<br/>TypeScript</p></div>
           </div>
           <div className='anim-text flex border-t border-white/20 pt-3 mt-8'>
               <div className='w-1/2'><h2 className='text-4xl mt-4'>Role</h2></div>
