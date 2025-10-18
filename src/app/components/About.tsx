@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 import { gsap, useGSAP } from '@/app/lib/gsap';
 import Link from 'next/link';
 
-
 const About = () => {
   const container = useRef(null);
 

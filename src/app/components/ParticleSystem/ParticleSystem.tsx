@@ -148,8 +148,8 @@ const ParticleSystem: React.FC<ParticleSystemProps> = ({
           uTime: { value: 0 }, uSize: { value: particleSize },
           uTextureSize: { value: new THREE.Vector2(imageData.width, imageData.height) },
           uTexture: { value: imageData.texture }, uTouch: { value: touchData.texture },
-          uRandom: { value: Math.random() }, // Add a random value
-          uDepth: { value: 0 } // Initialize depth value
+          uRandom: { value: Math.random() },
+          uDepth: { value: 0 }
         };
 
         const material = new THREE.RawShaderMaterial({
