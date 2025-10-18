@@ -106,7 +106,7 @@ const About = () => {
             href="#contact"
             className='inline-block bg-black text-white font-bold uppercase tracking-widest py-4 px-8 rounded-full hover:bg-neutral-800 transition-colors'
           >
-            {/* THIS IS THE FIXED LINE 👇: Changed "Let's" to "Let&apos;s" */}
+            {/* THIS IS THE FIXED LINE 👇 */}
             Let&apos;s Create Together
           </Link>
         </div>
