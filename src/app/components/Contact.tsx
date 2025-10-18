@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap, useGSAP } from '@/app/lib/gsap';
 
-// 👇 1. IMPORT THE DOWNLOAD ICON
 import { FiMail, FiPhone, FiDownload } from 'react-icons/fi';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
@@ -13,7 +12,6 @@ const CreativeLink = ({ title, detail, href, icon, download = false }: { title: 
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    // Add the download attribute if it's a download link
     {...(download && { download: true })}
     className="anim-link group relative flex w-full justify-between items-center border-b border-black py-8 transition-colors duration-300 hover:border-neutral-400"
   >
@@ -45,7 +43,8 @@ const ContactPage = () => {
       scrollTrigger: {
         trigger: container.current,
         start: 'top 80%',
-        end: 'bottom bottom',
+        // 👇 BUG FIX: Changed the end point to make the animation finish sooner.
+        end: 'top 30%', 
         scrub: 1.5,
       },
     });
@@ -80,7 +79,6 @@ const ContactPage = () => {
   return (
     <div id="contact" ref={container} className="w-full min-h-screen bg-white text-black flex flex-col font-sans overflow-hidden">
       
-      {/* ... (Your Header code remains the same) ... */}
       <header className='w-full flex justify-between items-center p-6 md:p-8 text-[10px] md:text-xs font-bold tracking-widest uppercase'>
         <Link href="/" className="z-10">
           <p>Gowtham R</p>
@@ -122,18 +120,16 @@ const ContactPage = () => {
           <CreativeLink title="LinkedIn" detail="View Profile" href="https://www.linkedin.com/in/gowtham-r-1634251b9/" icon={<FaLinkedin size={24} />} />
           <CreativeLink title="GitHub" detail="See My Code" href="https://github.com/GowthamR7" icon={<FaGithub size={24} />} />
           
-          {/* 👇 2. ADD THE NEW RESUME LINK HERE */}
           <CreativeLink 
             title="Resume" 
             detail="Download PDF" 
             href="/Gowtham_Resume_Fullstack.pdf" 
             icon={<FiDownload size={24} />}
-            download={true} // This tells the component to add the download attribute
+            download={true}
           />
         </div>
       </main>
 
-      {/* ... (Your Footer code remains the same) ... */}
       <footer className='w-full bg-black text-white flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-bold tracking-widest uppercase gap-6 p-6 md:p-8 mt-auto'>
         <p>© 2025 GOWTHAM R</p>
         <p className="hidden md:block">CRAFTED WITH NEXT.JS & GSAP</p>
