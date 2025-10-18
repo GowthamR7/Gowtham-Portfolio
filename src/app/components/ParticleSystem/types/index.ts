@@ -28,7 +28,7 @@ export interface MousePosition {
 
 // Add index signature to allow any uniform property
 export interface ParticleUniforms {
-  [uniform: string]: { value: any };
+  [uniform: string]: { value: unknown };
   uTime: { value: number };
   uRandom: { value: number };
   uDepth: { value: number };
