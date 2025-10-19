@@ -31,10 +31,8 @@ const Hero = () => {
         stagger: 0.05,
       }, "-=0.8");
 
-    // Mouse interaction for 3D effect (desktop only)
+    // Mouse interaction for 3D effect
     const handleMouseMove = (e: MouseEvent) => {
-      if (window.innerWidth < 768) return; // Disable on mobile
-      
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
       
@@ -59,7 +57,7 @@ const Hero = () => {
   }, { scope: container });
 
   return (
-    <div ref={container} className='hero-section relative h-screen w-full overflow-hidden'>
+    <div ref={container} className='hero-section relative h-screen w-full'>
       {/* Particle System Background */}
       <div className="absolute inset-0 z-0">
         <ParticleSystem 
@@ -71,13 +69,13 @@ const Hero = () => {
       </div>
 
       {/* 3D Text Content */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-12 sm:pb-16 md:pb-24 px-4 pointer-events-none">
-        <div className='hero-text-container w-full max-w-screen-xl relative transform-gpu'>
-          <div className="title text-sm sm:text-base md:text-lg font-bold text-left w-full px-2 sm:px-4 md:ml-10 text-xl sm:text-2xl md:text-[30px]">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 md:pb-24 pointer-events-none">
+        <div className='hero-text-container w-fit relative transform-gpu'>
+          <div className="title absolute left-0 text-base font-bold text-left w-full ml-4 sm:ml-6 md:ml-10 text-[20px] sm:text-[25px] md:text-[30px]">
             Creative Developer
           </div>
           
-          <h1 className="mt-4 sm:mt-6 md:mt-8 text-white-outline text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[13.5vw] font-extrabold tracking-wider sm:tracking-wide md:tracking-widest leading-none px-2 sm:px-0">
+          <h1 className="mt-8 text-white-outline text-7xl sm:text-8xl md:text-9xl lg:text-[13.5vw] font-extrabold tracking-widest leading-none">
             {name.split("").map((char, index) => (
               <span key={index} className="name-char inline-block transform-gpu">
                 {char}
