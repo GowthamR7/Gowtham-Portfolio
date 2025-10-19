@@ -10,45 +10,65 @@ import Contact from './components/Contact';
 const Home: React.FC = () => {
   const mainContainer = useRef(null);
 
+  // This is the main GSAP hook that controls all ScrollTrigger animations
   useGSAP(() => {
-    // --- SETUP: Initial states to prevent flashing ---
+    // --- 1. SETUP ---
+    // Set the initial hidden states for the sections before any animation starts
     gsap.set('.section-slide', { transformOrigin: 'center center', transformStyle: 'preserve-3d' });
     gsap.set('.about-section', { x: '100vw', rotationY: 45, rotationX: -15, z: -300, autoAlpha: 0 });
     gsap.set('.project-section', { x: '-100vw', rotationY: -45, rotationX: 15, z: -300, autoAlpha: 0 });
     gsap.set('.contact-section', { y: '50vh', rotationX: 45, rotationY: 10, z: -200, autoAlpha: 0 });
 
-    // --- Hero Section Animation ---
+    // --- 2. HERO SECTION ANIMATION ---
+    // This animates the Hero section out of view as you scroll down
     gsap.to('.hero-section', {
-      scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: 1.5 },
+      scrollTrigger: { 
+        trigger: '.hero-section', 
+        start: 'top top', 
+        end: 'bottom top', 
+        scrub: 1.5 
+      },
       scale: 0.7, rotationX: 25, rotationY: -10, z: -400, autoAlpha: 0, ease: 'power2.inOut',
     });
 
-    // --- ABOUT SECTION: COMBINED TIMELINE (THE FIX) ---
+    // --- 3. ABOUT SECTION TIMELINE ---
+    // This timeline controls both the section entrance AND the inner text animation
     const aboutTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.about-section',
-        start: 'top 80%', // Start when the container is 80% from the top
-        end: 'top 30%',   // End when it's 30% from the top
-        scrub: 1.2,
+        start: 'top 80%',
+        end: 'top 30%',
+        scrub: 1.5,
       }
     });
 
-    // 1. Animate the container sliding in
-    aboutTl.to('.about-section', {
-      rotationY: 0, rotationX: 0, z: 0, x: 0, autoAlpha: 1, ease: 'power2.out',
-    })
-    // 2. Chain the inner animations to fire AFTER the container is visible
-    .from('.about-section .about-title', { y: 100, opacity: 0, ease: 'power2.out' }, '<0.2') // Start 0.2s after the container starts
-    .from('.about-section .about-p', { y: 50, opacity: 0, ease: 'power2.out' }, '-=0.3') // Overlap for a smooth feel
-    .from('.about-section .about-card', { y: 80, opacity: 0, stagger: 0.2, ease: 'power2.out' }, '<'); // Stagger the cards
+    aboutTl
+      .to('.about-section', {
+        rotationY: 0, rotationX: 0, z: 0, x: 0, autoAlpha: 1, ease: 'power2.out',
+      })
+      .from('.about-section .title-anim .char', {
+        y: 80, opacity: 0, stagger: 0.02, ease: 'power2.out',
+      }, '<0.2')
+      .from('.about-section .p-anim .word', {
+        y: 30, opacity: 0, stagger: 0.03, ease: 'power2.out',
+      }, '-=0.5')
+      .from('.about-section .about-card', {
+        y: 80, opacity: 0, stagger: 0.1, ease: 'power2.out',
+      }, '<');
 
-    // --- Project Section Animation ---
+    // --- 4. PROJECT SECTION ANIMATION ---
     gsap.to('.project-section', {
-      scrollTrigger: { trigger: '.project-section', start: 'top bottom', end: 'top center', scrub: 1.2 },
+      scrollTrigger: { 
+        trigger: '.project-section', 
+        start: 'top bottom', 
+        end: 'top center', 
+        scrub: 1.2 
+      },
       rotationY: 0, rotationX: 0, z: 0, x: 0, autoAlpha: 1, ease: 'power2.out',
     });
     
-    // --- CONTACT SECTION: COMBINED TIMELINE (THE FIX) ---
+    // --- 5. CONTACT SECTION TIMELINE ---
+    // This timeline controls the contact section's entrance and inner text animation
     const contactTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.contact-section',
@@ -58,19 +78,23 @@ const Home: React.FC = () => {
       },
     });
 
-    // 1. Animate the container sliding in
-    contactTl.to('.contact-section', {
-      rotationX: 0, rotationY: 0, z: 0, y: 0, autoAlpha: 1, ease: 'power2.out',
-    })
-    // 2. Chain the inner animations
-    .from('.contact-section .anim-heading-word', { y: 100, opacity: 0, stagger: 0.1, ease: 'power2.out' }, '<0.2')
-    .from('.contact-section .anim-paragraph', { y: 50, opacity: 0, ease: 'power2.out' }, '-=0.2')
-    .from('.contact-section .anim-link', { y: 50, opacity: 0, stagger: 0.1, ease: 'power2.out' }, '<');
+    contactTl
+      .to('.contact-section', {
+        rotationX: 0, rotationY: 0, z: 0, y: 0, autoAlpha: 1, ease: 'power2.out',
+      })
+      .from('.contact-section .title-anim-contact .word', {
+        y: 100, opacity: 0, stagger: 0.1, ease: 'power2.out',
+      }, '<0.2')
+      .from('.contact-section .p-anim-contact .word', {
+        y: 50, opacity: 0, stagger: 0.05, ease: 'power2.out',
+      }, '-=0.5')
+      .from('.contact-section .anim-link', {
+        y: 50, opacity: 0, stagger: 0.1, ease: 'power2.out',
+      }, '<');
     
-
   }, { scope: mainContainer });
 
-  // No scope for parallax, this is correct
+  // --- Parallax Background Animations ---
   useGSAP(() => {
     gsap.to('.bg-parallax-1', {
       scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom top', scrub: 2 },
@@ -96,7 +120,6 @@ const Home: React.FC = () => {
         <div className="hero-section section-slide relative z-40">
           <Hero />
         </div>
-        {/* Make sure to add the correct class name here! */}
         <div className="about-section section-slide relative z-30">
           <About />
         </div>
