@@ -69,13 +69,13 @@ const Hero = () => {
       </div>
 
       {/* 3D Text Content */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 md:pb-24 pointer-events-none">
-        <div className='hero-text-container w-fit relative transform-gpu'>
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 md:pb-24 pointer-events-none px-4">
+        <div className='hero-text-container w-full max-w-[95vw] md:w-fit relative transform-gpu'>
           <div className="title absolute left-0 text-base font-bold text-left w-full ml-4 sm:ml-6 md:ml-10 text-[20px] sm:text-[25px] md:text-[30px]">
             Creative Developer
           </div>
           
-          <h1 className="mt-8 text-white-outline text-7xl sm:text-8xl md:text-9xl lg:text-[13.5vw] font-extrabold tracking-widest leading-none">
+          <h1 className="mt-8 text-white-outline text-[16vw] sm:text-[14vw] md:text-9xl lg:text-[13.5vw] font-extrabold tracking-[0.05em] sm:tracking-wider md:tracking-widest leading-none whitespace-nowrap overflow-hidden">
             {name.split("").map((char, index) => (
               <span key={index} className="name-char inline-block transform-gpu">
                 {char}

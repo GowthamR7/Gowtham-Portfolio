@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { gsap, useGSAP } from '@/app/lib/gsap';
 import About from './components/About';
 import Hero from './components/Hero';
@@ -11,6 +11,22 @@ import LoadingScreen from './components/LoadingScreen';
 const Home: React.FC = () => {
   const mainContainer = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
+
+  // Check if user has already seen loading screen in this session
+  useEffect(() => {
+    const hasLoaded = sessionStorage.getItem('hasLoadedOnce');
+    if (hasLoaded === 'true') {
+      setIsLoading(false);
+      setHasLoadedOnce(true);
+    }
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    setHasLoadedOnce(true);
+    sessionStorage.setItem('hasLoadedOnce', 'true');
+  };
 
   useGSAP(() => {
     if (isLoading) return;
@@ -106,9 +122,9 @@ const Home: React.FC = () => {
 
   return (
     <>
-      {isLoading && <LoadingScreen onLoaded={() => setIsLoading(false)} />}
+      {isLoading && !hasLoadedOnce && <LoadingScreen onLoaded={handleLoadingComplete} />}
       
-      <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
+      <div style={{ visibility: isLoading && !hasLoadedOnce ? 'hidden' : 'visible' }}>
         <div className="bg-parallax-1 fixed inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/5 to-transparent -z-30" />
         <div className="bg-parallax-2 fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08)_0%,transparent_50%)] -z-20" />
         <div className="bg-parallax-3 fixed inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent -z-10" />
