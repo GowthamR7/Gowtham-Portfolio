@@ -13,13 +13,13 @@ const CreativeLink = ({ title, detail, href, icon, download = false }: { title: 
     target="_blank"
     rel="noopener noreferrer"
     {...(download && { download: true })}
-    className="anim-link group relative flex w-full justify-between items-center border-b border-black py-8 transition-colors duration-300 hover:border-neutral-400"
+    className="anim-link group relative flex w-full justify-between items-center border-b border-black py-6 sm:py-8 transition-colors duration-300 hover:border-neutral-400"
   >
-    <div className='flex items-center gap-4'>
-      {icon}
-      <p className="text-xl md:text-2xl font-bold uppercase tracking-widest">{title}</p>
+    <div className='flex items-center gap-3 sm:gap-4'>
+      <div className="text-lg sm:text-xl md:text-2xl">{icon}</div>
+      <p className="text-base sm:text-lg md:text-2xl font-bold uppercase tracking-wide sm:tracking-widest">{title}</p>
     </div>
-    <p className="text-lg text-neutral-600 transition-colors duration-300 group-hover:text-black">{detail}</p>
+    <p className="text-sm sm:text-base md:text-lg text-neutral-600 transition-colors duration-300 group-hover:text-black hidden sm:block">{detail}</p>
   </a>
 );
 
@@ -43,7 +43,6 @@ const ContactPage = () => {
       scrollTrigger: {
         trigger: container.current,
         start: 'top 80%',
-        // 👇 BUG FIX: Changed the end point to make the animation finish sooner.
         end: 'top 30%', 
         scrub: 1.5,
       },
@@ -79,38 +78,40 @@ const ContactPage = () => {
   return (
     <div id="contact" ref={container} className="w-full min-h-screen bg-white text-black flex flex-col font-sans overflow-hidden">
       
-      <header className='w-full flex justify-between items-center p-6 md:p-8 text-[10px] md:text-xs font-bold tracking-widest uppercase'>
+      <header className='w-full flex justify-between items-center p-4 sm:p-6 md:p-8 text-[9px] sm:text-[10px] md:text-xs font-bold tracking-widest uppercase'>
         <Link href="/" className="z-10">
           <p>Gowtham R</p>
           <p>Creative Developer</p>
         </Link>
         <Link href="/" className="z-10">
-          <div className="z-10 border border-black rounded-full px-4 py-2 hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer">
+          <div className="z-10 border border-black rounded-full px-3 py-1.5 sm:px-4 sm:py-2 hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer text-[9px] sm:text-[10px] md:text-xs">
             MENU
           </div>
         </Link>
       </header>
 
-
+      {/* Custom cursor - only show on desktop */}
       <div
         style={followerStyle}
-        className="pointer-events-none fixed -top-4 -left-4 z-0 h-8 w-8 rounded-full bg-black mix-blend-difference"
+        className="pointer-events-none fixed -top-4 -left-4 z-0 h-8 w-8 rounded-full bg-black mix-blend-difference hidden md:block"
       ></div>
 
-      <main className="flex-grow w-full flex flex-col md:flex-row p-6 md:p-8">
+      <main className="flex-grow w-full flex flex-col md:flex-row p-4 sm:p-6 md:p-8">
         
-        <div className="w-full md:w-1/2 flex flex-col justify-between bg-black text-white p-8 md:p-12">
-            <h1 className="text-[18vw] md:text-[8vw] lg:text-[7vw] font-black leading-none tracking-tighter mt-10">
+        {/* Left side - GET IN TOUCH section */}
+        <div className="w-full md:w-1/2 flex flex-col justify-between bg-black text-white p-6 sm:p-8 md:p-12 mb-8 md:mb-0 rounded-lg md:rounded-none">
+            <h1 className="text-[20vw] sm:text-[15vw] md:text-[8vw] lg:text-[7vw] font-black leading-none tracking-tighter mt-6 sm:mt-8 md:mt-10">
                 <span className="block anim-heading-word">GET IN</span>
-                <span className="block anim-heading-word ml-35 mt-8">TOUCH</span>
+                <span className="block anim-heading-word mt-4 sm:mt-6 md:mt-8 ml-0 md:ml-35">TOUCH</span>
             </h1>
-            <p className="max-w-md text-base text-neutral-300 anim-paragraph ml-40 mb-43">
+            <p className="max-w-md text-sm sm:text-base text-neutral-300 anim-paragraph mt-8 sm:mt-12 md:ml-40 mb-8 sm:mb-12 md:mb-43">
                 I&apos;m currently available for freelance work... Whether you have a clear vision or just the spark of an idea, I&apos;m ready to help bring it to life.
             </p>
         </div>
 
+        {/* Right side - Contact links */}
         <div
-          className="w-full md:w-1/2 flex flex-col md:pl-10 lg:pl-20 mt-30"
+          className="w-full md:w-1/2 flex flex-col md:pl-10 lg:pl-20 md:mt-30"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -130,10 +131,10 @@ const ContactPage = () => {
         </div>
       </main>
 
-      <footer className='w-full bg-black text-white flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs font-bold tracking-widest uppercase gap-6 p-6 md:p-8 mt-auto'>
+      <footer className='w-full bg-black text-white flex flex-col md:flex-row justify-between items-center text-[9px] sm:text-[10px] md:text-xs font-bold tracking-widest gap-4 sm:gap-6 p-4 sm:p-6 md:p-8 mt-auto'>
         <p>© 2025 GOWTHAM R</p>
         <p className="hidden md:block">CRAFTED WITH NEXT.JS & GSAP</p>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
           <a href="https://github.com/GowthamR7" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
             GITHUB
           </a>
