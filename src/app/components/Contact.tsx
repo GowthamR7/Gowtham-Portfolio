@@ -119,7 +119,7 @@ const ContactPage = () => {
           <CreativeLink title="Email" detail="Click to Send" href="mailto:gowthamramar1372@gmail.com" icon={<FiMail size={24} />} />
           <CreativeLink title="Phone" detail="Click to Call" href="tel:+919944814765" icon={<FiPhone size={24} />} />
           <CreativeLink title="LinkedIn" detail="View Profile" href="https://www.linkedin.com/in/gowtham-r-1634251b9/" icon={<FaLinkedin size={24} />} />
-          <CreativeLink title="GitHub" detail="See My Code" href="https://github.com/GowthamR7" icon={<FaGithub size={24} />} />
+          {/* <CreativeLink title="GitHub" detail="See My Code" href="https://github.com/GowthamR7" icon={<FaGithub size={24} />} /> */}
           
           <CreativeLink 
             title="Resume" 
@@ -135,9 +135,9 @@ const ContactPage = () => {
         <p>© 2025 GOWTHAM R</p>
         <p className="hidden md:block">CRAFTED WITH NEXT.JS & GSAP</p>
         <div className="flex items-center gap-4 sm:gap-6">
-          <a href="https://github.com/GowthamR7" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
+          {/* <a href="https://github.com/GowthamR7" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
             GITHUB
-          </a>
+          </a> */}
           <a href="https://www.linkedin.com/in/gowtham-r-1634251b9/" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
             LINKEDIN
           </a>
