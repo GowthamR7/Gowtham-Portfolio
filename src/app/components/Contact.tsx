@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { gsap, useGSAP } from '@/app/lib/gsap';
 
 import { FiMail, FiPhone, FiDownload } from 'react-icons/fi';
-import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa';
 
 const CreativeLink = ({ title, detail, href, icon, download = false }: { title: string; detail: string; href: string; icon: React.ReactNode; download?: boolean }) => (
   <a
@@ -13,60 +13,77 @@ const CreativeLink = ({ title, detail, href, icon, download = false }: { title: 
     target="_blank"
     rel="noopener noreferrer"
     {...(download && { download: true })}
-    className="anim-link group relative flex w-full justify-between items-center border-b border-black py-6 sm:py-8 transition-colors duration-300 hover:border-neutral-400"
+    className="anim-link group relative flex w-full justify-between items-center border-b border-black py-4 sm:py-6 lg:py-8 transition-colors duration-300 hover:border-neutral-400"
   >
-    <div className='flex items-center gap-3 sm:gap-4'>
-      <div className="text-lg sm:text-xl md:text-2xl">{icon}</div>
-      <p className="text-base sm:text-lg md:text-2xl font-bold uppercase tracking-wide sm:tracking-widest">{title}</p>
+    <div className='flex items-center gap-2 sm:gap-3 lg:gap-4'>
+      <div className="text-base sm:text-lg lg:text-xl xl:text-2xl">{icon}</div>
+      <p className="text-sm sm:text-base lg:text-lg xl:text-2xl font-bold uppercase tracking-wide lg:tracking-widest">{title}</p>
     </div>
-    <p className="text-sm sm:text-base md:text-lg text-neutral-600 transition-colors duration-300 group-hover:text-black hidden sm:block">{detail}</p>
+    <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-neutral-600 transition-colors duration-300 group-hover:text-black hidden sm:block">{detail}</p>
   </a>
 );
 
 const ContactPage = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const container = useRef(null);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleMouseMove = (event: MouseEvent) => {
       setMousePos({ x: event.clientX, y: event.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
+
     return () => {
+      window.removeEventListener('resize', checkMobile);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
   useGSAP(() => {
-    const tl = gsap.timeline({
+    // Only animate Y position, NOT opacity - ensures content is always visible
+    gsap.from('.anim-heading-word', {
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+      },
+      y: isMobile ? 30 : 50,
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'power2.out',
+    });
+
+    gsap.from('.anim-paragraph', {
       scrollTrigger: {
         trigger: container.current,
         start: 'top 80%',
-        end: 'top 30%', 
-        scrub: 1.5,
+        toggleActions: 'play none none reverse',
       },
+      y: isMobile ? 20 : 30,
+      duration: 0.6,
+      ease: 'power2.out',
     });
 
-    tl.from('.anim-heading-word', {
-      y: 100,
-      opacity: 0,
-      stagger: 0.1,
+    // Contact links - NO opacity animation to prevent visibility issues
+    gsap.from('.anim-link', {
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 75%',
+        toggleActions: 'play none none reverse',
+      },
+      y: isMobile ? 20 : 30,
+      duration: 0.5,
+      stagger: 0.08,
       ease: 'power2.out',
-    })
-    .from('.anim-paragraph', {
-      y: 50,
-      opacity: 0,
-      ease: 'power2.out',
-    }, '-=0.2')
-    .from('.anim-link', {
-      y: 50,
-      opacity: 0,
-      stagger: 0.1,
-      ease: 'power2.out',
-    }, '<');
+    });
 
-  }, { scope: container });
+  }, { scope: container, dependencies: [isMobile] });
 
   const followerStyle = {
     transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
@@ -77,14 +94,14 @@ const ContactPage = () => {
 
   return (
     <div id="contact" ref={container} className="w-full min-h-screen bg-white text-black flex flex-col font-sans overflow-hidden">
-      
-      <header className='w-full flex justify-between items-center p-4 sm:p-6 md:p-8 text-[9px] sm:text-[10px] md:text-xs font-bold tracking-widest uppercase'>
+
+      <header className='w-full flex justify-between items-center p-4 sm:p-6 lg:p-8 text-[8px] sm:text-[10px] lg:text-xs font-bold tracking-widest uppercase'>
         <Link href="/" className="z-10">
           <p>Gowtham R</p>
           <p>Creative Developer</p>
         </Link>
         <Link href="/" className="z-10">
-          <div className="z-10 border border-black rounded-full px-3 py-1.5 sm:px-4 sm:py-2 hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer text-[9px] sm:text-[10px] md:text-xs">
+          <div className="z-10 border border-black rounded-full px-3 py-1.5 sm:px-4 sm:py-2 hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer text-[8px] sm:text-[10px] lg:text-xs">
             MENU
           </div>
         </Link>
@@ -93,25 +110,25 @@ const ContactPage = () => {
       {/* Custom cursor - only show on desktop */}
       <div
         style={followerStyle}
-        className="pointer-events-none fixed -top-4 -left-4 z-0 h-8 w-8 rounded-full bg-black mix-blend-difference hidden md:block"
+        className="pointer-events-none fixed -top-4 -left-4 z-0 h-8 w-8 rounded-full bg-black mix-blend-difference hidden lg:block"
       ></div>
 
-      <main className="flex-grow w-full flex flex-col md:flex-row p-4 sm:p-6 md:p-8">
-        
+      <main className="flex-grow w-full flex flex-col lg:flex-row p-4 sm:p-6 lg:p-8">
+
         {/* Left side - GET IN TOUCH section */}
-        <div className="w-full md:w-1/2 flex flex-col justify-between bg-black text-white p-6 sm:p-8 md:p-12 mb-8 md:mb-0 rounded-lg md:rounded-none">
-            <h1 className="text-[20vw] sm:text-[15vw] md:text-[8vw] lg:text-[7vw] font-black leading-none tracking-tighter mt-6 sm:mt-8 md:mt-10">
-                <span className="block anim-heading-word">GET IN</span>
-                <span className="block anim-heading-word mt-4 sm:mt-6 md:mt-8 ml-0 md:ml-35">TOUCH</span>
-            </h1>
-            <p className="max-w-md text-sm sm:text-base text-neutral-300 anim-paragraph mt-8 sm:mt-12 md:ml-40 mb-8 sm:mb-12 md:mb-43">
-                I&apos;m currently available for freelance work... Whether you have a clear vision or just the spark of an idea, I&apos;m ready to help bring it to life.
-            </p>
+        <div className="w-full lg:w-1/2 flex flex-col justify-between bg-black text-white p-4 sm:p-6 lg:p-8 xl:p-12 mb-6 lg:mb-0 rounded-lg lg:rounded-none">
+          <h1 className="text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[6vw] xl:text-[5vw] font-black leading-none tracking-tighter mt-4 sm:mt-6 lg:mt-8 xl:mt-10">
+            <span className="block anim-heading-word">GET IN</span>
+            <span className="block anim-heading-word mt-2 sm:mt-4 lg:mt-6 xl:mt-8 ml-0 lg:ml-20 xl:ml-35">TOUCH</span>
+          </h1>
+          <p className="max-w-md text-xs sm:text-sm lg:text-base text-neutral-300 anim-paragraph mt-6 sm:mt-8 lg:mt-10 lg:ml-20 xl:ml-40 mb-6 sm:mb-8 lg:mb-12">
+            I&apos;m currently available for freelance work... Whether you have a clear vision or just the spark of an idea, I&apos;m ready to help bring it to life.
+          </p>
         </div>
 
         {/* Right side - Contact links */}
         <div
-          className="w-full md:w-1/2 flex flex-col md:pl-10 lg:pl-20 md:mt-30"
+          className="w-full lg:w-1/2 flex flex-col lg:pl-8 xl:pl-20 lg:mt-20 xl:mt-30"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -119,25 +136,21 @@ const ContactPage = () => {
           <CreativeLink title="Email" detail="Click to Send" href="mailto:gowthamramar1372@gmail.com" icon={<FiMail size={24} />} />
           <CreativeLink title="Phone" detail="Click to Call" href="tel:+919944814765" icon={<FiPhone size={24} />} />
           <CreativeLink title="LinkedIn" detail="View Profile" href="https://www.linkedin.com/in/gowtham-r-1634251b9/" icon={<FaLinkedin size={24} />} />
-          {/* <CreativeLink title="GitHub" detail="See My Code" href="https://github.com/GowthamR7" icon={<FaGithub size={24} />} /> */}
-          
-          <CreativeLink 
-            title="Resume" 
-            detail="Download PDF" 
-            href="/Gowtham_Resume_Fullstack.pdf" 
+
+          <CreativeLink
+            title="Resume"
+            detail="Download PDF"
+            href="/Gowtham_Resume_Fullstack.pdf"
             icon={<FiDownload size={24} />}
             download={true}
           />
         </div>
       </main>
 
-      <footer className='w-full bg-black text-white flex flex-col md:flex-row justify-between items-center text-[9px] sm:text-[10px] md:text-xs font-bold tracking-widest gap-4 sm:gap-6 p-4 sm:p-6 md:p-8 mt-auto'>
+      <footer className='w-full bg-black text-white flex flex-col lg:flex-row justify-between items-center text-[8px] sm:text-[10px] lg:text-xs font-bold tracking-widest gap-3 sm:gap-4 lg:gap-6 p-4 sm:p-6 lg:p-8 mt-auto'>
         <p>© 2025 GOWTHAM R</p>
-        <p className="hidden md:block">CRAFTED WITH NEXT.JS & GSAP</p>
+        <p className="hidden lg:block">CRAFTED WITH NEXT.JS & GSAP</p>
         <div className="flex items-center gap-4 sm:gap-6">
-          {/* <a href="https://github.com/GowthamR7" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
-            GITHUB
-          </a> */}
           <a href="https://www.linkedin.com/in/gowtham-r-1634251b9/" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
             LINKEDIN
           </a>

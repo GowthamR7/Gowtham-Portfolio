@@ -1,56 +1,16 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { gsap, useGSAP } from '@/app/lib/gsap';
+import React from 'react';
 import Link from 'next/link';
 
 const About = () => {
-  const container = useRef(null);
-
-  useGSAP(() => {
-    gsap.from('.about-title', {
-      scrollTrigger: {
-        trigger: '.about-title',
-        start: 'top 90%', 
-        end: 'bottom 70%', 
-        scrub: true,
-      },
-      y: 100,
-      opacity: 0,
-      ease: 'none',
-    });
-
-    gsap.from('.about-p', {
-      scrollTrigger: {
-        trigger: '.about-p',
-        start: 'top 90%',
-        end: 'bottom 80%',
-        scrub: true,
-      },
-      y: 50,
-      opacity: 0,
-      ease: 'none',
-    });
-    
-    gsap.from('.about-card', {
-      scrollTrigger: {
-        trigger: '.about-cards-container',
-        start: 'top 85%',
-        end: 'bottom 75%', 
-        scrub: true,
-      },
-      y: 80,
-      opacity: 0,
-      ease: 'none',
-      stagger: 0.2, 
-    });
-
-  }, { scope: container });
+  // All GSAP animations are handled in page.tsx to ensure proper coordination
+  // with the section slide-in animation
 
   return (
-    <section ref={container} className='about-section relative z-10 w-full min-h-screen bg-white text-black p-4 sm:p-6 md:p-8 lg:p-12 font-sans'>
+    <section className='about-section relative z-10 w-full min-h-screen bg-white text-black p-4 sm:p-6 md:p-8 lg:p-12 font-sans'>
       <div className='max-w-7xl mx-auto'>
-        
+
         <div className='text-center border-b border-neutral-200 pb-8 sm:pb-10 md:pb-12'>
           <div className='about-title'>
             <h1 className='text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] font-black leading-none tracking-tighter flex text-left justify-start'>
@@ -68,7 +28,7 @@ const About = () => {
         </div>
 
         <div className='about-cards-container w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-10 md:mt-12'>
-          
+
           <div className='about-card border border-neutral-200 p-6 sm:p-8 rounded-lg'>
             <h3 className='text-xl sm:text-2xl font-bold mb-3 sm:mb-4 flex items-center gap-3'>
               <span className='text-neutral-400'>01</span>
