@@ -126,7 +126,7 @@ const Project = () => {
           </p>
           <div className='anim-text flex border-t border-white/20 pt-2 sm:pt-3 mt-3 sm:mt-4 lg:mt-6 xl:mt-8'>
             <div className='w-1/2'><h2 className='text-xl sm:text-2xl lg:text-3xl xl:text-4xl mt-1 sm:mt-2 lg:mt-3 xl:mt-4'>Tech</h2></div>
-            <div className='w-1/2'><p className='text-xs sm:text-sm lg:text-base xl:text-lg text-white/60 pt-2 sm:pt-4 lg:pt-6 xl:pt-8 border-l border-white/20 pl-2 sm:pl-3 lg:pl-4'>React.js<br />Node.js<br />RAG & OpenAI<br />Text-to-Speech<br />Authentication</p></div>
+            <div className='w-1/2'><p className='text-xs sm:text-sm lg:text-base xl:text-lg text-white/60 pt-2 sm:pt-4 lg:pt-6 xl:pt-8 border-l border-white/20 pl-2 sm:pl-3 lg:pl-4'>React.js<br />Node.js<br />RAG & OpenAI<br />Text-to-Speech<br />Authentication <br />Razorpay</p></div>
           </div>
           <div className='anim-text flex border-t border-white/20 pt-2 sm:pt-3 mt-3 sm:mt-4 lg:mt-6 xl:mt-8'>
             <div className='w-1/2'><h2 className='text-xl sm:text-2xl lg:text-3xl xl:text-4xl mt-1 sm:mt-2 lg:mt-3 xl:mt-4'>Role</h2></div>
