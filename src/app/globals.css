@@ -96,10 +96,19 @@
 
 /* Initial hidden states for scroll animations - prevents flickering */
 /* These must be outside @layer to ensure proper specificity */
+/* Using clip-path to completely hide sections, not just opacity */
 .about-section,
 .project-section {
   visibility: hidden;
   opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  /* Clips section from bottom - completely hidden */
+}
+
+/* GSAP will set clip-path: inset(0) when animating in */
+.about-section.gsap-visible,
+.project-section.gsap-visible {
+  clip-path: inset(0);
 }
 
 /* Inner elements start hidden - GSAP will animate to visible */

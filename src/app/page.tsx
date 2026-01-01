@@ -84,8 +84,8 @@ const Home: React.FC = () => {
     if (isMobile) {
       // Mobile: Simple slide up
       aboutTl
-        // Step 1: Section slides in (0% - 25% of scroll)
-        .to('.about-section', { y: 0, autoAlpha: 1, duration: 1 })
+        // Step 1: Section slides in and reveals (clips to visible)
+        .to('.about-section', { y: 0, autoAlpha: 1, clipPath: 'inset(0 0 0 0)', duration: 1 })
         // Step 2: Title and paragraph appear (25% - 50% of scroll)
         .to('.about-section .about-title', { y: 0, opacity: 1, duration: 0.8 }, '-=0.3')
         .to('.about-section .about-p', { y: 0, opacity: 1, duration: 0.8 }, '-=0.5')
@@ -96,8 +96,8 @@ const Home: React.FC = () => {
     } else {
       // Desktop: 3D slide with rotation
       aboutTl
-        // Step 1: Section slides in with 3D effect (0% - 30% of scroll)
-        .to('.about-section', { rotationY: 0, rotationX: 0, z: 0, x: 0, autoAlpha: 1, duration: 1.2 })
+        // Step 1: Section slides in with 3D effect and reveals (clips to visible)
+        .to('.about-section', { rotationY: 0, rotationX: 0, z: 0, x: 0, autoAlpha: 1, clipPath: 'inset(0 0 0 0)', duration: 1.2 })
         // Step 2: Title and paragraph appear (30% - 55% of scroll)
         .to('.about-section .about-title', { y: 0, opacity: 1, duration: 0.8 }, '-=0.4')
         .to('.about-section .about-p', { y: 0, opacity: 1, duration: 0.8 }, '-=0.5')
@@ -111,12 +111,12 @@ const Home: React.FC = () => {
     if (isMobile) {
       gsap.to('.project-section', {
         scrollTrigger: { trigger: '.project-section', start: 'top bottom', end: 'top 60%', scrub: 1 },
-        y: 0, autoAlpha: 1, ease: 'power2.out',
+        y: 0, autoAlpha: 1, clipPath: 'inset(0 0 0 0)', ease: 'power2.out',
       });
     } else {
       gsap.to('.project-section', {
         scrollTrigger: { trigger: '.project-section', start: 'top bottom', end: 'top 60%', scrub: 1 },
-        rotationY: 0, rotationX: 0, z: 0, x: 0, autoAlpha: 1, ease: 'power2.out',
+        rotationY: 0, rotationX: 0, z: 0, x: 0, autoAlpha: 1, clipPath: 'inset(0 0 0 0)', ease: 'power2.out',
       });
     }
 
