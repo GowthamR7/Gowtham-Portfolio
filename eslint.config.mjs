@@ -19,6 +19,8 @@ const eslintConfig = [
       "react/no-unescaped-entities": "off",
       // Turn off exhaustive deps warning
       "react-hooks/exhaustive-deps": "off",
+      // Disable custom font rule (false positive for App Router using next/font)
+      "@next/next/no-page-custom-font": "off",
     },
     ignores: [
       "node_modules/**",
