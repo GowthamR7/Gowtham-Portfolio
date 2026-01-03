@@ -1,13 +1,37 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Turbopack config (Next.js 16+ default bundler)
+  turbopack: {
+    rules: {
+      '*.glsl': {
+        loaders: ['raw-loader'],
+        as: '*.js',
+      },
+      '*.vs': {
+        loaders: ['raw-loader'],
+        as: '*.js',
+      },
+      '*.fs': {
+        loaders: ['raw-loader'],
+        as: '*.js',
+      },
+      '*.vert': {
+        loaders: ['raw-loader'],
+        as: '*.js',
+      },
+      '*.frag': {
+        loaders: ['raw-loader'],
+        as: '*.js',
+      },
+    },
+  },
+  // Webpack config (fallback for --webpack builds)
   webpack: (config) => {
-    // Handle GLSL files for shaders
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
       use: ['raw-loader'],
     });
-
     return config;
   },
   transpilePackages: ['three'],
@@ -17,3 +41,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
