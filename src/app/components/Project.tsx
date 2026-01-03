@@ -88,14 +88,14 @@ const Project = () => {
           </div>
         </div>
         <div className='project-image w-full lg:w-1/2 h-56 sm:h-72 md:h-80 lg:h-full relative rounded-lg lg:rounded-none overflow-hidden'>
-          <Image src="/diginest.png" alt="Diginest AI SaaS Platform" fill className='object-cover' />
+          <Image src="/diginest.png" alt="Diginest AI SaaS Platform" fill sizes="(max-width: 1024px) 100vw, 50vw" className='object-cover' />
         </div>
       </div>
 
       {/* Project 2: AI Placement Insight Generator */}
       <div className="project-item w-full min-h-screen lg:h-[90vh] xl:h-[95vh] flex flex-col-reverse lg:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-4">
         <div className='project-image w-full lg:w-1/2 h-56 sm:h-72 md:h-80 lg:h-full relative rounded-lg lg:rounded-none overflow-hidden'>
-          <Image src="/ai.png" alt="AI Placement Insight Generator" fill className='object-cover' />
+          <Image src="/ai.png" alt="AI Placement Insight Generator" fill sizes="(max-width: 1024px) 100vw, 50vw" className='object-cover' />
         </div>
         <div className='project-content w-full lg:w-1/2 text-white p-4 sm:p-6 lg:p-8 xl:p-12'>
           <h2 className='anim-text text-xl sm:text-2xl lg:text-3xl xl:text-4xl mt-2 sm:mt-3 lg:mt-4'>AI Placement Insight Generator</h2>
@@ -134,14 +134,14 @@ const Project = () => {
           </div>
         </div>
         <div className='project-image w-full lg:w-1/2 h-56 sm:h-72 md:h-80 lg:h-full relative rounded-lg lg:rounded-none overflow-hidden'>
-          <Image src="/jurishbot.png" alt="Jurist Bot AI Legal Assistant" fill className='object-cover' />
+          <Image src="/jurishbot.png" alt="Jurist Bot AI Legal Assistant" fill sizes="(max-width: 1024px) 100vw, 50vw" className='object-cover' />
         </div>
       </div>
 
       {/* Project 4: Healthcare Platform */}
       <div className="project-item w-full min-h-screen lg:h-[90vh] xl:h-[95vh] flex flex-col-reverse lg:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-4">
         <div className='project-image w-full lg:w-1/2 h-56 sm:h-72 md:h-80 lg:h-full relative rounded-lg lg:rounded-none overflow-hidden'>
-          <Image src="/health.png" alt="Healthcare Platform" fill className='object-cover' />
+          <Image src="/health.png" alt="Healthcare Platform" fill sizes="(max-width: 1024px) 100vw, 50vw" className='object-cover' />
         </div>
         <div className='project-content w-full lg:w-1/2 text-white p-4 sm:p-6 lg:p-8 xl:p-12'>
           <h2 className='anim-text text-xl sm:text-2xl lg:text-3xl xl:text-4xl mt-2 sm:mt-3 lg:mt-4'>Healthcare Platform | B2B & B2C</h2>
