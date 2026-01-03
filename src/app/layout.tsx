@@ -1,5 +1,13 @@
 import type { Metadata } from 'next';
+import { Barlow } from 'next/font/google';
 import './globals.css';
+
+const barlow = Barlow({
+  weight: ['800'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-barlow',
+});
 
 export const metadata: Metadata = {
   title: 'Your Portfolio',
@@ -12,15 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={barlow.variable}>
       <body>{children}</body>
     </html>
   );
