@@ -75,9 +75,12 @@ const Home: React.FC = () => {
     const aboutTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.about-section',
-        start: 'top 95%',
-        end: 'top -10%',  // Extended range for slower animation
-        scrub: 0.8,
+        start: 'top 60%',
+        end: 'top 10%',
+        scrub: true,
+        // toggleActions: "play none none reverse",
+        // markers: true,
+
       }
     });
 

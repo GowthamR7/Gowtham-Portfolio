@@ -1,14 +1,142 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
+import { gsap, useGSAP } from '@/app/lib/gsap';
 
 const About = () => {
-  // All GSAP animations are handled in page.tsx to ensure proper coordination
-  // with the section slide-in animation
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    // --- Title Parallax Animation ---
+    gsap.fromTo('.about-title h1',
+      { x: -50, opacity: 0.5 },
+      {
+        x: 0,
+        opacity: 1,
+        scrollTrigger: {
+          trigger: '.about-title',
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: true,
+        }
+      }
+    );
+
+    gsap.fromTo('.about-title h2',
+      { x: 50, opacity: 0.3 },
+      {
+        x: 0,
+        opacity: 1,
+        scrollTrigger: {
+          trigger: '.about-title',
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: true,
+        }
+      }
+    );
+
+    // --- Paragraph Fade In ---
+    gsap.fromTo('.about-p',
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        scrollTrigger: {
+          trigger: '.about-p',
+          start: 'top 85%',
+          end: 'top 60%',
+          scrub: true,
+        }
+      }
+    );
+
+    // --- Cards Stagger Animation ---
+    const cards = gsap.utils.toArray<HTMLElement>('.about-card');
+
+    cards.forEach((card, index) => {
+      // Stagger offset: each card starts 5% later in the scroll
+      const staggerOffset = index * 5;
+
+      gsap.fromTo(card,
+        {
+          y: 80,
+          opacity: 0,
+          scale: 0.9,
+          rotateX: 10,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          rotateX: 0,
+          scrollTrigger: {
+            trigger: '.about-cards-container',
+            start: `top ${85 - staggerOffset}%`,
+            end: `top ${50 - staggerOffset}%`,
+            scrub: true,
+          }
+        }
+      );
+
+      // Card content stagger (h3 and p inside each card)
+      const cardTitle = card.querySelector('h3');
+      const cardText = card.querySelector('p');
+
+      if (cardTitle) {
+        gsap.fromTo(cardTitle,
+          { y: 25, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+              trigger: '.about-cards-container',
+              start: `top ${80 - staggerOffset}%`,
+              end: `top ${45 - staggerOffset}%`,
+              scrub: true,
+            }
+          }
+        );
+      }
+
+      if (cardText) {
+        gsap.fromTo(cardText,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+              trigger: '.about-cards-container',
+              start: `top ${75 - staggerOffset}%`,
+              end: `top ${40 - staggerOffset}%`,
+              scrub: true,
+            }
+          }
+        );
+      }
+    });
+
+    // --- CTA Button Animation ---
+    gsap.fromTo('.about-cta',
+      { y: 30, opacity: 0, scale: 0.9 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        scrollTrigger: {
+          trigger: '.about-cta',
+          start: 'top 95%',
+          end: 'top 70%',
+          scrub: true,
+        }
+      }
+    );
+
+  }, { scope: containerRef });
 
   return (
-    <section className='about-section relative z-10 w-full min-h-screen bg-white text-black p-4 sm:p-6 md:p-8 lg:p-12 font-sans'>
+    <section ref={containerRef} className='about-section relative z-10 w-full min-h-screen bg-white text-black p-4 sm:p-6 md:p-8 lg:p-12 font-sans'>
       <div className='max-w-7xl mx-auto'>
 
         <div className='text-center border-b border-neutral-200 pb-8 sm:pb-10 md:pb-12'>
@@ -60,7 +188,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className='text-center mt-12 sm:mt-16 md:mt-20'>
+        <div className='about-cta text-center mt-12 sm:mt-16 md:mt-20'>
           <Link
             href="#contact"
             className='inline-block bg-black text-white font-bold uppercase tracking-widest py-3 px-6 sm:py-4 sm:px-8 rounded-full hover:bg-neutral-800 transition-colors text-sm sm:text-base'

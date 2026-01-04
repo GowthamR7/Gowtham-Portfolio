@@ -3,16 +3,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap, useGSAP } from '@/app/lib/gsap';
+import { analytics } from '@/app/components/GoogleAnalytics';
 
 import { FiMail, FiPhone, FiDownload } from 'react-icons/fi';
 import { FaLinkedin } from 'react-icons/fa';
 
-const CreativeLink = ({ title, detail, href, icon, download = false }: { title: string; detail: string; href: string; icon: React.ReactNode; download?: boolean }) => (
+const CreativeLink = ({ title, detail, href, icon, download = false, onClick }: { title: string; detail: string; href: string; icon: React.ReactNode; download?: boolean; onClick?: () => void }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     {...(download && { download: true })}
+    onClick={onClick}
     className="anim-link group relative flex w-full justify-between items-center border-b border-black py-4 sm:py-6 lg:py-8 transition-colors duration-300 hover:border-neutral-400"
   >
     <div className='flex items-center gap-2 sm:gap-3 lg:gap-4'>
@@ -46,42 +48,71 @@ const ContactPage = () => {
   }, []);
 
   useGSAP(() => {
-    // Only animate Y position, NOT opacity - ensures content is always visible
-    gsap.from('.anim-heading-word', {
+    // Create a master timeline for the left panel content
+    const leftPanelTl = gsap.timeline({
       scrollTrigger: {
-        trigger: container.current,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse',
-      },
-      y: isMobile ? 30 : 50,
-      duration: 0.7,
-      stagger: 0.12,
-      ease: 'power2.out',
-    });
-
-    gsap.from('.anim-paragraph', {
-      scrollTrigger: {
-        trigger: container.current,
+        trigger: '.contact-left-panel',
         start: 'top 80%',
-        toggleActions: 'play none none reverse',
-      },
-      y: isMobile ? 20 : 30,
-      duration: 0.6,
-      ease: 'power2.out',
+        end: 'top 20%',
+        scrub: 1,
+        // markers: true, // Uncomment for debugging
+      }
     });
 
-    // Contact links - NO opacity animation to prevent visibility issues
-    gsap.from('.anim-link', {
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top 75%',
-        toggleActions: 'play none none reverse',
+    // Animate heading words with stagger
+    leftPanelTl.fromTo('.anim-heading-word',
+      {
+        y: isMobile ? 40 : 60,
+        opacity: 0,
+        skewY: 3,
       },
-      y: isMobile ? 20 : 30,
-      duration: 0.5,
-      stagger: 0.08,
-      ease: 'power2.out',
+      {
+        y: 0,
+        opacity: 1,
+        skewY: 0,
+        stagger: 0.15,
+        ease: 'power3.out',
+      }
+    );
+
+    // Animate paragraph
+    leftPanelTl.fromTo('.anim-paragraph',
+      {
+        y: isMobile ? 25 : 40,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        ease: 'power2.out',
+      },
+      '-=0.3' // Overlap with previous animation
+    );
+
+    // Right panel - Contact links animation
+    const rightPanelTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.contact-right-panel',
+        start: 'top 85%',
+        end: 'top 30%',
+        scrub: 1,
+        // markers: true, // Uncomment for debugging
+      }
     });
+
+    // Animate each link with stagger
+    rightPanelTl.fromTo('.anim-link',
+      {
+        x: isMobile ? 30 : 50,
+        opacity: 0,
+      },
+      {
+        x: 0,
+        opacity: 1,
+        stagger: 0.1,
+        ease: 'power2.out',
+      }
+    );
 
   }, { scope: container, dependencies: [isMobile] });
 
@@ -116,7 +147,7 @@ const ContactPage = () => {
       <main className="flex-grow w-full flex flex-col lg:flex-row p-4 sm:p-6 lg:p-8">
 
         {/* Left side - GET IN TOUCH section */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-between bg-black text-white p-4 sm:p-6 lg:p-8 xl:p-12 mb-6 lg:mb-0 rounded-lg lg:rounded-none">
+        <div className="contact-left-panel w-full lg:w-1/2 flex flex-col justify-between bg-black text-white p-4 sm:p-6 lg:p-8 xl:p-12 mb-6 lg:mb-0 rounded-lg lg:rounded-none">
           <h1 className="text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[6vw] xl:text-[5vw] font-black leading-none tracking-tighter mt-4 sm:mt-6 lg:mt-8 xl:mt-10">
             <span className="block anim-heading-word">GET IN</span>
             <span className="block anim-heading-word mt-2 sm:mt-4 lg:mt-6 xl:mt-8 ml-0 lg:ml-20 xl:ml-35">TOUCH</span>
@@ -128,14 +159,14 @@ const ContactPage = () => {
 
         {/* Right side - Contact links */}
         <div
-          className="w-full lg:w-1/2 flex flex-col lg:pl-8 xl:pl-20 lg:mt-20 xl:mt-30"
+          className="contact-right-panel w-full lg:w-1/2 flex flex-col lg:pl-8 xl:pl-20 lg:mt-20 xl:mt-30"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
           <div className="border-t border-black w-full"></div>
-          <CreativeLink title="Email" detail="Click to Send" href="mailto:gowthamramar1372@gmail.com" icon={<FiMail size={24} />} />
-          <CreativeLink title="Phone" detail="Click to Call" href="tel:+919944814765" icon={<FiPhone size={24} />} />
-          <CreativeLink title="LinkedIn" detail="View Profile" href="https://www.linkedin.com/in/gowtham-r-1634251b9/" icon={<FaLinkedin size={24} />} />
+          <CreativeLink title="Email" detail="Click to Send" href="mailto:gowthamramar1372@gmail.com" icon={<FiMail size={24} />} onClick={analytics.trackEmailClick} />
+          <CreativeLink title="Phone" detail="Click to Call" href="tel:+919944814765" icon={<FiPhone size={24} />} onClick={analytics.trackPhoneClick} />
+          <CreativeLink title="LinkedIn" detail="View Profile" href="https://www.linkedin.com/in/gowtham-r-1634251b9/" icon={<FaLinkedin size={24} />} onClick={analytics.trackLinkedInClick} />
 
           <CreativeLink
             title="Resume"
@@ -143,11 +174,12 @@ const ContactPage = () => {
             href="/Gowtham_Resume_Fullstack.pdf"
             icon={<FiDownload size={24} />}
             download={true}
+            onClick={analytics.trackResumeDownload}
           />
         </div>
       </main>
 
-      <footer className='w-full bg-black text-white flex flex-col lg:flex-row justify-between items-center text-[8px] sm:text-[10px] lg:text-xs font-bold tracking-widest gap-3 sm:gap-4 lg:gap-6 p-4 sm:p-6 lg:p-8 mt-auto'>
+      <footer className='contact-footer w-full bg-black text-white flex flex-col lg:flex-row justify-between items-center text-[8px] sm:text-[10px] lg:text-xs font-bold tracking-widest gap-3 sm:gap-4 lg:gap-6 p-4 sm:p-6 lg:p-8 mt-auto'>
         <p>© 2025 GOWTHAM R</p>
         <p className="hidden lg:block">CRAFTED WITH NEXT.JS & GSAP</p>
         <div className="flex items-center gap-4 sm:gap-6">
